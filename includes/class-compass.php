@@ -75,8 +75,6 @@ class Compass {
 		$this->plugin_name = 'compass';
 
 		$this->load_dependencies();
-		$this->set_locale();
-		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
 	}
@@ -87,8 +85,6 @@ class Compass {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Compass_Loader. Orchestrates the hooks of the plugin.
-	 * - Compass_i18n. Defines internationalization functionality.
-	 * - Compass_Admin. Defines all hooks for the admin area.
 	 * - Compass_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
@@ -106,56 +102,12 @@ class Compass {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-compass-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-compass-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-compass-admin.php';
-
-		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-compass-public.php';
 
 		$this->loader = new Compass_Loader();
-
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Compass_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Compass_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
-	}
-
-	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_admin_hooks() {
-
-		$plugin_admin = new Compass_Admin( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 	}
 
