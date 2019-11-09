@@ -4,19 +4,28 @@
  * 
  * @since 1.0.0
  * @package Compass
- * @subpackage Compass/tests
+ * @subpackage Compass/tests/unit-tests
  */
 
 use PHPUnit\Framework\TestCase;
 use Compass\Compass_User;
 
-// Test CMD: ./vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/unit-tests/CompassUserTests
+// Test CMD: ./vendor/bin/phpunit tests/unit-tests/CompassUserTests
 
 final class CompassUserTests extends TestCase {
-    public function test_get_user_ip()
-    {
-        $compass_user = new Compass_User();
 
-        $this->assertIsString( $compass_user->get_ip() );
+    /**
+     * Test the get_user_ip method.
+     *
+     * @since 1.0.0
+     */
+    public function test_get_user_ip() {
+        $dummy_user_ip = getenv('USER_IP_ADDRESS');
+        $_SERVER['REMOTE_ADDR'] = $dummy_user_ip;
+
+        $user = new Compass_User();
+
+        // Test to make sure we are getting the correct user ip address
+        $this->assertEquals( $dummy_user_ip, $user->get_ip_address() );
     }
 }

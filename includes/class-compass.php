@@ -36,7 +36,7 @@ class Compass {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string
 	 */
 	protected $plugin_name;
 
@@ -45,7 +45,7 @@ class Compass {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string
 	 */
 	protected $version;
 
@@ -54,7 +54,7 @@ class Compass {
 	 *
 	 * @since	1.0.0
 	 * @access	protected
-	 * @var		Compass\Compass_User	$user	Object that has properties and method about the user
+	 * @var		Compass\Compass_User
 	 */
 	protected $user;
 
@@ -63,7 +63,7 @@ class Compass {
 	 *
 	 * @since 	1.0.0
 	 * @access	protected
-	 * @var		string	$api_key	The api key as provided by IP stack
+	 * @var		string
 	 */
 	protected $api_key;
 
@@ -96,19 +96,34 @@ class Compass {
 	 */
 	private function load_dependencies() {
 		$this->set_api_key();
+
 		$this->user = new Compass_User();
 	}
 
 	/**
-	 * Set the api_key property
+	 * Set the api_key property if we have one. If we don't, let
+	 * us throw a new Exception.
 	 *
-	 * @return void
+	 * @since	1.0.0
+	 * @access	private
 	 */
 	private function set_api_key() {
+		$api_key = null;
+
+		// Let's see if we have an key defined
 		if ( defined('IPSTACK_API_KEY') ) {
-			$this->api_key = IPSTACK_API_KEY;
+			if( IPSTACK_API_KEY != '') {
+				$api_key = IPSTACK_API_KEY;
+			}
+		}
+
+		// Depending on the result above:
+		if ( is_null($api_key) ) {
+			// Throw error if we have no key
+			throw new \Exception('API key not set. Please make sure it is defined in the wp-config.php file.');
 		} else {
-			$this->api_key = null;
+			// Otherwise, let set our property
+			$this->api_key = $api_key;
 		}
 	}
 	
