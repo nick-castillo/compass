@@ -45,4 +45,13 @@ final class CompassTests extends TestCase {
         $compass_two = new Compass();
         $this->assertEquals( $api_key, $compass_two->get_api_key() );
     }
+
+    /**
+     * Test the get_user_location method.
+     *
+     * @since 1.0.0
+     */
+    public function test_get_user_location() {
+        
+    }
 }
