@@ -20,7 +20,7 @@ final class CompassTests extends TestCase {
      * @since 1.0.0
      */
     public function test_get_user_ip() {
-        $dummy_user_ip = '11.11.11.11';
+        $dummy_user_ip = getenv('USER_IP_ADDRESS');
         $_SERVER['REMOTE_ADDR'] = $dummy_user_ip;
 
         $compass = new Compass();
@@ -34,7 +34,7 @@ final class CompassTests extends TestCase {
      * @since 1.0.0
      */
     public function test_get_set_api_key() {
-        $api_key = 'testing_123';
+        $api_key = getenv('IPSTACK_API_KEY');
 
         // Grab key without it getting defined anywhere
         $compass_one = new Compass();
@@ -51,7 +51,7 @@ final class CompassTests extends TestCase {
      *
      * @since 1.0.0
      */
-    public function test_get_user_location() {
-        
-    }
+    // public function test_get_user_location() {
+
+    // }
 }
