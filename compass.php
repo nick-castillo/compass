@@ -43,5 +43,4 @@ define( 'COMPASS_VERSION', '1.0.0' );
 function load_compass() {
 	require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 }
-
 add_action( 'plugins_loaded', 'load_compass' );

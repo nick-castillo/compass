@@ -1,6 +1,6 @@
 <?php
 
-use Compass\Compass_Loader;
+namespace Compass;
 
 /**
  * The file that defines the core plugin class
@@ -50,6 +50,15 @@ class Compass {
 	protected $version;
 
 	/**
+	 * User object that holds info about the current user.
+	 *
+	 * @since	1.0.0
+	 * @access	protected
+	 * @var		Compass\Compass_User	$user	Object that has properties and method about the user
+	 */
+	protected $user;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -68,8 +77,15 @@ class Compass {
 		$this->plugin_name = 'compass';
 
 		$this->load_dependencies();
-		$this->define_public_hooks();
+	}
 
+	/**
+	 * Load all the class dependencies of Compass
+	 *
+	 * @since 1.0.0
+	 */
+	private function load_dependencies() {
+		$this->user = new Compass_User();
 	}
 
 	/**
@@ -93,4 +109,7 @@ class Compass {
 		return $this->version;
 	}
 
+	public function get_user_ip() {
+		return $this->user->get_ip();
+	}
 }
