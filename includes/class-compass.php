@@ -59,6 +59,15 @@ class Compass {
 	protected $user;
 
 	/**
+	 * The api key for ipstack
+	 *
+	 * @since 	1.0.0
+	 * @access	protected
+	 * @var		string	$api_key	The api key as provided by IP stack
+	 */
+	protected $api_key;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -75,19 +84,34 @@ class Compass {
 		}
 
 		$this->plugin_name = 'compass';
-
+		
 		$this->load_dependencies();
 	}
 
 	/**
 	 * Load all the class dependencies of Compass
 	 *
-	 * @since 1.0.0
+	 * @since	1.0.0
+	 * @access 	private
 	 */
 	private function load_dependencies() {
+		$this->set_api_key();
 		$this->user = new Compass_User();
 	}
 
+	/**
+	 * Set the api_key property
+	 *
+	 * @return void
+	 */
+	private function set_api_key() {
+		if ( defined('IPSTACK_API_KEY') ) {
+			$this->api_key = IPSTACK_API_KEY;
+		} else {
+			$this->api_key = null;
+		}
+	}
+	
 	/**
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
@@ -109,7 +133,23 @@ class Compass {
 		return $this->version;
 	}
 
+	/**
+	 * Get the user ip address
+	 *
+	 * @since	1.0.0
+	 * @return	string	The user ip address or null
+	 */
 	public function get_user_ip() {
 		return $this->user->get_ip();
+	}
+
+	/**
+	 * Get IPSTACK api key
+	 *
+	 * @since 1.0.0
+	 * @return	string	The api key or null
+	 */
+	public function get_api_key() {
+		return $this->api_key;
 	}
 }

@@ -13,6 +13,7 @@ namespace Compass;
  * @subpackage Compass/includes
  */
 class Compass_User {
+
     /**
      * Grab the user's IP adress
      *
@@ -22,17 +23,17 @@ class Compass_User {
     public function get_ip() {
         $ipaddress = null;
 
-        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        if ( isset($_SERVER['HTTP_CLIENT_IP']) ) {
             $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        } else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif ( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) {
             $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else if(isset($_SERVER['HTTP_X_FORWARDED'])) {
+        } elseif ( isset($_SERVER['HTTP_X_FORWARDED']) ) {
             $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        } else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+        } elseif ( isset($_SERVER['HTTP_FORWARDED_FOR']) ) {
             $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        } else if(isset($_SERVER['HTTP_FORWARDED'])) {
+        } elseif ( isset($_SERVER['HTTP_FORWARDED']) ) {
             $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        } else if(isset($_SERVER['REMOTE_ADDR'])) {
+        } elseif ( isset($_SERVER['REMOTE_ADDR']) ) {
             $ipaddress = $_SERVER['REMOTE_ADDR'];
         }
 
