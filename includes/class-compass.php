@@ -1,6 +1,7 @@
 <?php
 
-namespace Compass;
+use Compass\Compass_User;
+use Compass\Compass_Ipstack;
 
 /**
  * The file that defines the core plugin class

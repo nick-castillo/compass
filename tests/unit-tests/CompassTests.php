@@ -8,7 +8,7 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use Compass\Compass;
+use Compass;
 
 // Test CMD: ./vendor/bin/phpunit tests/unit-tests/CompassTests
 
@@ -17,6 +17,9 @@ final class CompassTests extends TestCase {
     /**
      * Test to check if for undefined ipstack api key
      *
+     * To make sure this test runs properly, ensure that the wp-config
+     * is clear of any defined constants related to Compass.
+     * 
      * @since 1.0.0
      */
     public function test_undefined_ipstack_api_key() {

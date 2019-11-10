@@ -1,3 +1,46 @@
+# Steps
+1. Download copy
+1. Activate plugin
+1. Edit wp-config.php file and define: IPSTACK_API_KEY & IP_STACK_MEMBERSHIP_TYPE
+1. Instantiate where you want to use and call get_user_location:
+    ```
+    $compass  = new Compass();
+    $location = $compass->get_user_location();
+
+    echo'<pre>'; print_r( $compass->get_user_location() ); echo'</pre>';
+
+    // Should output:
+    Array
+    (
+        [data] => stdClass Object
+            (
+                [ip] => '...'
+                [type] => '...'
+                [continent_code] => '...' 
+                [continent_name] => '...' 
+                [country_code] => '...' 
+                [country_name] => '...' 
+                [region_code] => '...' 
+                [region_name] => '...' 
+                [city] => '...' 
+                [zip] => '...' 
+                [latitude] => '...' 
+                [longitude] => '...' 
+                [location] => stdClass Object
+                    (
+                        [geoname_id] => '...' 
+                        [capital] => '...' 
+                        [languages] => '...' 
+                        [country_flag] => '...' 
+                        [country_flag_emoji] => '...' 
+                        [country_flag_emoji_unicode] => '...' 
+                        [calling_code] => '...' 
+                        [is_eu] => '...' 
+                    )
+            )
+    )
+    ```
+
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://nick-castillo.ca
