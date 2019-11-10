@@ -13,6 +13,7 @@ A location detection plugin for WordPress that uses the ipstack API.
 1. Rename the folder from `compass-master` to `compass`. 
 1. If you didn't do the steps above with a terminal, open one up, and `cd` into the compass plugin location.
 1. Once you are in the root of the compass plugin, run: `composer install`. This will install the dependencies required by the plugin.
+1. Optimize the autoload file: `composer dumpautoload -o`.
 1. Edit your `wp-config.php` file and define: `IPSTACK_API_KEY` & `IP_STACK_MEMBERSHIP_TYPE`
     ```
     ...
