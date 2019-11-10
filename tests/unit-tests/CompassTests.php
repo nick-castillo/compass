@@ -10,7 +10,7 @@
 use PHPUnit\Framework\TestCase;
 use Compass\Compass;
 
-// Test CMD: ./vendor/bin/phpunit --bootstrap tests/unit-tests/CompassTests
+// Test CMD: ./vendor/bin/phpunit tests/unit-tests/CompassTests
 
 final class CompassTests extends TestCase {
 
@@ -20,7 +20,7 @@ final class CompassTests extends TestCase {
      * @since 1.0.0
      */
     public function test_undefined_ipstack_api_key() {
-        // Test to make sure we get the correct error when no API key is defined
+        // Expect error when no API key is defined
         $this->expectException('Exception');
         $this->expectExceptionMessage('API key not set. Please make sure it is defined in the wp-config.php file.');
 
@@ -33,9 +33,12 @@ final class CompassTests extends TestCase {
      * @since 1.0.0
      */
     public function test_get_set_api_key() {
-        $api_key = getenv('IPSTACK_API_KEY');
+        $api_key         = getenv('IPSTACK_API_KEY');
+        $membership_type = getenv('IP_STACK_MEMBERSHIP_TYPE');
 
         define('IPSTACK_API_KEY', $api_key);
+        define('IP_STACK_MEMBERSHIP_TYPE', $membership_type);
+
         $compass = new Compass();
 
         // Test to see if we get the correct API key
@@ -47,20 +50,30 @@ final class CompassTests extends TestCase {
      *
      * @since 1.0.0
      */
-    // public function test_get_user_location() {
-    //     $compass = new Compass();
-    //     $user_location = $compass->get_user_location();
+    public function test_get_user_location() {
+        $api_key         = getenv('IPSTACK_API_KEY');
+        $membership_type = getenv('IP_STACK_MEMBERSHIP_TYPE');
+        $dummy_user_ip   = getenv('USER_IP_ADDRESS');
 
-    //     // Test to see if we are getting all the data for user's
-    //     $this->assertArrayHasKey('ip', $user_location);
-    //     $this->assertArrayHasKey('type', $user_location);
-    //     $this->assertArrayHasKey('continent_code', $user_location);
-    //     $this->assertArrayHasKey('continent_name', $user_location);
-    //     $this->assertArrayHasKey('country_code', $user_location);
-    //     $this->assertArrayHasKey('country_name', $user_location);
-    //     $this->assertArrayHasKey('region_code', $user_location);
-    //     $this->assertArrayHasKey('region_name', $user_location);
-    //     $this->assertArrayHasKey('city', $user_location);
-    //     $this->assertArrayHasKey('zip', $user_location);
-    // }
+        
+        $_SERVER['REMOTE_ADDR'] = $dummy_user_ip;
+        
+        define('IP_STACK_MEMBERSHIP_TYPE', $membership_type);
+        define('IPSTACK_API_KEY', $api_key);
+
+        $compass = new Compass();
+        $user_location = $compass->get_user_location();
+
+        // Test to see if we are getting all the data for user's
+        $this->assertObjectHasAttribute('ip', $user_location['data']);
+        $this->assertObjectHasAttribute('type', $user_location['data']);
+        $this->assertObjectHasAttribute('continent_code', $user_location['data']);
+        $this->assertObjectHasAttribute('continent_name', $user_location['data']);
+        $this->assertObjectHasAttribute('country_code', $user_location['data']);
+        $this->assertObjectHasAttribute('country_name', $user_location['data']);
+        $this->assertObjectHasAttribute('region_code', $user_location['data']);
+        $this->assertObjectHasAttribute('region_name', $user_location['data']);
+        $this->assertObjectHasAttribute('city', $user_location['data']);
+        $this->assertObjectHasAttribute('zip', $user_location['data']);
+    }
 }

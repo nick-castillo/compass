@@ -68,6 +68,15 @@ class Compass {
 	protected $api_key;
 
 	/**
+	 * ipstack object that holds an instance of Compass\Compass_Ipstack
+	 *
+	 * @since	1.0.0
+	 * @access	protected
+	 * @var		Compass\Compass_Ipstack
+	 */
+	protected $ipstack;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -98,6 +107,8 @@ class Compass {
 		$this->set_api_key();
 
 		$this->user = new Compass_User();
+
+		$this->ipstack = new Compass_Ipstack($this->api_key);
 	}
 
 	/**
@@ -155,7 +166,7 @@ class Compass {
 	 * @return	string	The user ip address or null
 	 */
 	public function get_user_ip() {
-		return $this->user->get_ip();
+		return $this->user->get_ip_address();
 	}
 
 	/**
@@ -166,5 +177,15 @@ class Compass {
 	 */
 	public function get_api_key() {
 		return $this->api_key;
+	}
+
+	/**
+	 * Grab the user's location
+	 *
+	 * @since 1.0.0
+	 * @return array
+	 */
+	public function get_user_location() {
+		return $this->ipstack->get_user_location($this->get_user_ip());
 	}
 }
