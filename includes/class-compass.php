@@ -186,6 +186,10 @@ class Compass {
 	 * @return array
 	 */
 	public function get_user_location() {
-		return $this->ipstack->get_user_location($this->get_user_ip());
+		if ( !is_null() ) {
+			return $this->ipstack->get_user_location($this->get_user_ip());
+		} else {
+			return [ 'data' => null ];
+		}
 	}
 }
