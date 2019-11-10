@@ -1,7 +1,26 @@
-# Steps
-1. Download copy
-1. Activate plugin
-1. Edit wp-config.php file and define: IPSTACK_API_KEY & IP_STACK_MEMBERSHIP_TYPE
+# Compass
+A location detection plugin for WordPress that uses the ipstack API.
+
+## Assumptions
+1. You have an [ipstack](https://ipstack.com/) account where you can get an access key.
+1. Know the basics of how to navigate your machine using a terminal.
+1. Have [composer](https://getcomposer.org/) installed on your machine.
+1. If you are running a load balancer, the client's IP is getting passed down to the servers.
+
+## Installation
+1. Download or clone a copy of the repo to your machine.
+1. Unzip the file and move the unzipped folder to the `wp-content/plugin` folder of your WordPress site.
+1. Rename the folder from `compass-master` to `compass`. 
+1. If you didn't do the steps above with a terminal, open one up, and `cd` into the compass plugin location.
+1. Once you are in the root of the compass plugin, run: `composer install`. This will install the dependencies required by the plugin.
+1. Edit your `wp-config.php` file and define: `IPSTACK_API_KEY` & `IP_STACK_MEMBERSHIP_TYPE`
+    ```
+    ...
+    define('IPSTACK_API_KEY', 'enter_your_access_key_here');
+    define('IP_STACK_MEMBERSHIP_TYPE', ''); // Values can be free or paid
+    ...
+    ```
+1. Log into the WordPress Dashboard and activate the plugin.
 1. Instantiate where you want to use and call get_user_location:
     ```
     $compass  = new Compass();
@@ -9,7 +28,7 @@
 
     echo'<pre>'; print_r( $compass->get_user_location() ); echo'</pre>';
 
-    // Should output:
+    // Should get an output that looks like this:
     Array
     (
         [data] => stdClass Object
@@ -40,51 +59,4 @@
             )
     )
     ```
-
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: https://nick-castillo.ca
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
-
-== Description ==
-
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
-
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
-
-== Changelog ==
-
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+1. That's it, happy coding!
