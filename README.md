@@ -1,5 +1,9 @@
-# Compass
+# Compass: 1.0.0
 A location detection plugin for WordPress that uses the ipstack API.
+
+## WP Compatibility
+* WP Version: 5.3 or higher
+* Tested up to: 5.4.1
 
 ## Assumptions
 1. You have an [ipstack](https://ipstack.com/) account where you can get an access key.
